@@ -10,6 +10,7 @@
     {
         public function addComment(Comment $c);
         public function getComments($id_post);
+        public function deleteComments($id);
     }
 
 ?>

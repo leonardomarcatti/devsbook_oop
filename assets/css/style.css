@@ -327,6 +327,32 @@ header .head-side {
     left: -500px;
 }
 
+.feed-pagination a{
+    display: inline-block;
+    padding: 7px 10px;
+    text-decoration: none;
+    color: black;
+    margin: 5px;
+    border: 1px solid #ddd;
+    border-radius: -5px;
+    transition: all .5s;
+}
+
+.feed-pagination a:hover{
+    background-color: #ddd;
+    border: 1px solid darkgray;
+}
+
+.feed-pagination a.active{
+    background-color: white;
+    border: 1px solid darkgray;
+}
+
+.feed-pagination a.active:hover{
+    background-color: #ddd;
+    border: 1px solid darkgray;
+}
+
 .feed-new-send img, .feed-new-photo img {
     width:25px;
     height:25px;

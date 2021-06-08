@@ -64,20 +64,29 @@ class PostDAOMysql implements PostDAO
            $insert->execute();
         }
 
-        public function getHomeFeed($id_user)
+        public function getHomeFeed($id_user, $page = 1)
         {
             $myarray = array();
+            $perPage = 5;
+            $offset = ($page-1)*$perPage;
             $relation = new RelationDAOMysql($this->conection);
             $list = $relation->getFollowing($id_user);
             $list[] = $id_user; 
-            $sql = 'select * from posts where id_user in (' . implode(',', $list) .') order by created_at desc';
+            $sql = 'select * from posts where id_user in (' . implode(',', $list) .') order by created_at desc limit ' . $offset . ", $perPage";
             $select = $this->conection->prepare($sql);
             $select->execute();
             $data = $select->fetchAll(\PDO::FETCH_ASSOC);
-            $myarray = $this->postListToObject($data, $id_user);
+            $myarray['feed'] = $this->postListToObject($data, $id_user);
 
+            $sql = 'select count(*) as c from posts where id_user in (' . implode(',', $list) .')';
+            $count = $this->conection->prepare($sql);
+            $count->execute();
+            $total = $count->fetch()['c'];
+            $myarray['pages'] = ceil($total/$perPage);
+            $myarray['currentPage'] = $page;
             return $myarray;
         }
+
 
         public function getPhotos($id)
         {
@@ -91,16 +100,26 @@ class PostDAOMysql implements PostDAO
             return $photos;
         }
 
-        public function getUserFeed($id)
+        public function getUserFeed($id, $page = 1)
         {
+            $perPage = 5;
+            
+            $offset = ($page-1)*$perPage;
             $myarray = array();
-            $relation = new RelationDAOMysql($this->conection);
-            $sql = 'select * from posts where id_user = :id  order by created_at desc';
+            $sql = "select * from posts where id_user = :id order by created_at desc limit $offset, $perPage";
             $select = $this->conection->prepare($sql);
             $select->bindValue(':id', $id);
             $select->execute();
             $data = $select->fetchAll(\PDO::FETCH_ASSOC);
-            $myarray = $this->postListToObject($data, $id);
+            $myarray['feed'] = $this->postListToObject($data, $id);
+
+            $sql = 'select count(*) as c from posts where id_user = :id';
+            $count = $this->conection->prepare($sql);
+            $count->bindValue(':id', $id);
+            $count->execute();
+            $total = $count->fetch()['c'];
+            $myarray['pages'] = ceil($total/$perPage);
+            $myarray['currentPage'] = $page;
 
             return $myarray;
         }

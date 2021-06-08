@@ -13,6 +13,14 @@
             $this->conection = $conection;
         }
 
+        public function deleteLike($id)
+        {
+            $sql = "delete from likes where id_post = :id";
+            $delete = $this->conection->prepare($sql);
+            $delete->bindValue(':id', $id);
+            $delete->execute();
+        }
+
         public function getLikeCount($id_post)
         {
             $sql = "select count(*) as 'likes' from likes where id_post = :id_post";

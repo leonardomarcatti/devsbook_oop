@@ -25,6 +25,14 @@
             $insert->bindValue(':created_at', $c->created_at);
             $insert->execute();
         }
+
+        public function deleteComments($id)
+        {
+            $sql = "delete from comments where id_post = :id";
+            $delete = $this->conection->prepare($sql);
+            $delete->bindValue(':id', $id);
+            $delete->execute();
+        }
         
         public function getComments($id_post)
         {

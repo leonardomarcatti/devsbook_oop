@@ -10,7 +10,16 @@
     $userInfo = $auth->checkToken();
     $activeMenu = 'home';
     $posts = new PostDAOMysql($conection);
-    $feed = $posts->getHomeFeed($userInfo->id);
+    $page = intval(filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT));
+
+    if ($page < 1) {
+        $page = 1;
+    };
+
+    $info = $posts->getHomeFeed($userInfo->id, $page);
+    $feed = $info['feed'];
+    $pages = $info['pages'];
+    $cp = $info['currentPage'];
     require_once 'partials/header.php';
     require_once 'partials/menu.php';
 ?>
@@ -23,7 +32,13 @@
                         require 'partials/feed-item.php';
                     };                    
                 ?>
-
+           <div class="feed-pagination">
+                <?php 
+                    for ($i=0; $i < $pages; $i++) { ?>
+                        <a class="<?=($i+1 == $cp)? 'active': ''?>" href="<?=$base?>?page=<?=$i+1?>"><?=$i+1?></a>
+                <?php    };
+                ?>
+           </div>
             </div>
             <div class="column side pl-5">
             <div class="box banners">

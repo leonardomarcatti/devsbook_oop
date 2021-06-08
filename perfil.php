@@ -14,6 +14,7 @@
     $activeMenu = 'profile';
     $user = [];
     $feed = [];
+    
 
     $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
     if (!$id) {
@@ -22,6 +23,12 @@
 
     if ($id != $userInfo->id) {
         $activeMenu = '';
+    };
+
+    $page = intval(filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT));
+
+    if ($page < 1) {
+        $page = 1;
     };
 
     $post_dao = new PostDAOMysql($conection);
@@ -38,7 +45,10 @@
     $user->idade = $nasc->diff($now)->y;
 
     //Pegar feed do user
-    $feed = $post_dao->getUserFeed($id);
+    $info = $post_dao->getUserFeed($id, $page);
+    $feed = $info['feed'];
+    $pages = $info['pages'];
+    $cp = $info['currentPage'];
 
     //Verificar se sigo o user
     $followingDAO = new RelationDAOMysql($conection);
@@ -195,6 +205,13 @@
                         echo 'Não há postagens deste usuário';
                     };
                 ?>
+                <div class="feed-pagination">
+                <?php 
+                    for ($i=0; $i < $pages; $i++) { ?>
+                        <a class="<?=($i+1 == $cp)? 'active': ''?>" href="<?=$base?>perfil.php?id=<?=$id?>&page=<?=$i+1?>"><?=$i+1?></a>
+                <?php    };
+                ?>
+           </div>
             </div>    
         </div>
     </section>
