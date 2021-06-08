@@ -12,6 +12,11 @@
         public function getHomeFeed($id);
         public function getUserFeed($id);
         public function getPhotos($id);
+        public function delete($id);
+        public function checkType($id);
+        public function getPhotoBody($id);
+        public function deletePhoto($id);
+
     }
 
 

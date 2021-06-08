@@ -33,6 +33,37 @@ class PostDAOMysql implements PostDAO
            $insert->execute();
         }
 
+        public function checkType($id)
+        {
+            $sql = "select post_type from posts where id = :id";
+            $check = $this->conection->prepare($sql);
+            $check->bindValue(':id', $id);
+            $check->execute();
+            return ($check->fetch(\pdo::FETCH_ASSOC)['post_type']) ? true : false;
+        }
+
+        public function getPhotoBody($id)
+        {
+            $sql = "select body from posts where id = :id";
+            $check = $this->conection->prepare($sql);
+            $check->bindValue(':id', $id);
+            $check->execute();
+            return $check->fetch(\pdo::FETCH_ASSOC)['body'];
+        }
+
+        public function deletePhoto($body)
+        {
+           unlink('/var/www/html/programacao/curso/B7Web/php/devsbook_oop/media/uploads/' . $body);
+        }
+
+        public function delete($id)
+        {
+           $sql = 'delete from posts where id = :id';
+           $insert = $this->conection->prepare($sql);
+           $insert->bindValue(':id', $id);           
+           $insert->execute();
+        }
+
         public function getHomeFeed($id_user)
         {
             $myarray = array();

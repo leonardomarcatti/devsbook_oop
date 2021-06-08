@@ -26,7 +26,7 @@
                     <div class="feed-item-head-btn">
                         <img src="<?=$base?>assets/images/more.png" />
                         <div class="feed-item-more-window">
-                            <a href="<?=$base?>/excluir_post.php?=<?=$item->id?>">Excluir Post</a>
+                            <a href="<?=$base?>excluir_post.php?id=<?=$item->id?>">Excluir Post</a>
                         </div>
                     </div>
                     
