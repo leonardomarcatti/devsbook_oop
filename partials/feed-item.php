@@ -21,12 +21,29 @@
                 <br/>
                 <span class="fidi-date"><?=date('d/m/Y', strtotime($item->created_at))?></span>
             </div>
-            <div class="feed-item-head-btn">
-                <img src="<?=$base?>assets/images/more.png" />
-            </div>
+            <?php
+                if ($item->mine) { ?>
+                    <div class="feed-item-head-btn">
+                        <img src="<?=$base?>assets/images/more.png" />
+                        <div class="feed-item-more-window">
+                            <a href="<?=$base?>/excluir_post.php?=<?=$item->id?>">Excluir Post</a>
+                        </div>
+                    </div>
+                    
+            <?php   
+                };
+            ?>
         </div>
         <div class="feed-item-body mt-10 m-width-20">
-            <?=nl2br($item->body)?>
+        <?php
+            if ($item->type == 'text') { ?>
+               <?=nl2br($item->body)?>
+            <?php } else {?>
+                <img src="<?=$base?>media/uploads/<?=$item->body?>" alt="" srcset="">
+           <?php }
+            
+        ?>
+            
         </div>
         <div class="feed-item-buttons row mt-20 m-width-20">
             <div class="like-btn <?=($item->liked)? 'on' : ''?>"><?=$item->likeCount?></div>

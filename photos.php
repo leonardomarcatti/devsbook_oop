@@ -80,7 +80,7 @@
                             <?php 
                                 foreach ($user->photos as $key => $item) { ?>
                                    <div class="user-photo-item">
-                                        <a href="#modal-<?=$key?>" rel="modal:open">
+                                        <a href="#modal-<?=$key?>" data-modal-open>
                                             <img src="<?=$base?>media/uploads/<?=$item->body?>" />
                                         </a>
                                         <div id="modal-<?=$key?>" style="display:none">
@@ -95,6 +95,12 @@
             </div>
         </div>
     </section>
+    <script>
+        window.onload = function(){
+            var modal = new VanillaModal.default();
+        }
+
+    </script>
 <?php
     require_once 'partials/footer.php';
 ?>

@@ -316,11 +316,18 @@ header .head-side {
     display: none;
     color:#333;
 }
-.feed-new-send {
+.feed-new-send, .feed-new-photo {
     cursor: pointer;
     margin-right:5px;
 }
-.feed-new-send img {
+
+.feed-new-file{
+    position: absolute;
+    top: -500px;
+    left: -500px;
+}
+
+.feed-new-send img, .feed-new-photo img {
     width:25px;
     height:25px;
 }
@@ -437,6 +444,7 @@ header .head-side {
 
 .user-photo-item {
     margin-right:10px;
+    max-width: 25%;
 }
 .user-photo-item:last-child {
     margin-right:0;
@@ -468,14 +476,16 @@ header .head-side {
     padding:10px 0;
 }
 
-.full-user-photos {
+.full-user-photos{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap:10px;
     margin:20px;
+    
 }
 .full-user-photos .user-photo-item {
     margin:0;
+    max-width: 100%;
 }
 
 .config-form{

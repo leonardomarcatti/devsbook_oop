@@ -70,7 +70,7 @@
                         <?php 
                              if ($id != $userInfo->id) { ?>
                                 <div class="profile-info-item m-width-20">
-                                <a href="follow_action.php?id=" class="button"><?=(!$isFollowing)? 'Seguir': 'Abandonar'?></a>
+                                <a href="follow_action.php?id=<?=$id?>" class="button"><?=(!$isFollowing)? 'Seguir': 'Abandonar'?></a>
                             </div>
                         <?php    };
                         ?>                            
@@ -162,15 +162,17 @@
                     <div class="box-body row m-20">
                         <?php 
                             if (count($user->photos) > 0) {
-                               foreach ($user->photos as $key => $photo) { ?>
-                                    <div class="user-photo-item">
-                                        <a href="#modal-1" rel="modal:open">
+                               foreach ($user->photos as $key => $photo) { 
+                                   if ($key < 4 ) { ?>
+                                      <div class="user-photo-item">
+                                        <a href="#modal-1" data-modal-open>
                                             <img src="<?=$base?>media/uploads/<?=$photo->body?>" />
                                         </a>
                                         <div id="modal-1" style="display:none">
                                             <img src="<?=$base?>media/uploads/<?=$photo->body?>" />
                                         </div>
                                     </div>
+                                   <?php }?>                                    
                             <?php
                                 };
                             } else{
@@ -196,6 +198,12 @@
             </div>    
         </div>
     </section>
+    <script>
+        window.onload = function(){
+            var modal = new VanillaModal.default();
+        }
+
+    </script>
 <?php
     require_once 'partials/footer.php';
 ?>

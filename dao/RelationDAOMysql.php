@@ -16,7 +16,20 @@
 
             public function insert(Relation $r)
             {
-                # code...
+                $sql = "insert into relations(user_from, user_to) values(:from, :to)";
+                $insert = $this->conection->prepare($sql);
+                $insert->bindValue(':from', $r->from);
+                $insert->bindValue(':to', $r->to);
+                $insert->execute();
+            }
+
+            public function delete(Relation $r)
+            {
+               $sql = "delete from relations where user_from = :from and user_to = :to";
+               $delete = $this->conection->prepare($sql);
+               $delete->bindValue(':from', $r->from);
+               $delete->bindValue(':to', $r->to);
+               $delete->execute();
             }
 
             public function getFollowing($id)

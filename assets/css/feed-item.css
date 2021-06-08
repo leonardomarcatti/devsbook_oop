@@ -1,6 +1,8 @@
 .feed-item-head {
     align-items: center;
 }
+
+
 .feed-item-head-photo {
     margin-right:15px;
 }
@@ -29,9 +31,33 @@
     margin-right:5px;
     cursor: pointer;
 }
+
 .feed-item-head-btn img {
     width:20px;
     height:20px;
+}
+
+.feed-item-more-window{
+    position: absolute;
+    background-color: white;
+    padding: 5px;
+    border: 1px solid #eee;
+    width: 150px;
+    border-radius: 3px;
+    margin-left: -130px;
+    display: none;
+}
+
+.feed-item-more-window a{
+    text-decoration: none;
+    color: #224b7a;
+    display: block;
+    padding: 7px;
+}
+
+.feed-item-more-window a:hover{
+    background-color: rgb(216, 216, 216);
+    color: black;
 }
 
 .feed-item-body {
