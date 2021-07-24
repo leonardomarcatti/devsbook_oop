@@ -16,7 +16,7 @@
 ?>
     <section class="feed mt-10">
         <h1>Configuações</h1>
-        <?php if ($_SESSION['flash'] != '') { ?>
+        <?php if (isset($_SESSION['flash'])) { ?>
             <p id="flash"><?=$_SESSION['flash'];?></p>
             <?php 
                     unset($_SESSION['flash']);

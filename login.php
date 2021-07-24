@@ -21,7 +21,7 @@
         <section class="container main">
             <form method="POST" action="<?=$base?>login_action.php">
             <?php
-                if ($_SESSION['flash'] != '') { ?>
+                if (isset($_SESSION['flash'])) { ?>
                     <p id="flash"><?=$_SESSION['flash'];?></p>
                     <?php unset($_SESSION['flash']);
                 };
